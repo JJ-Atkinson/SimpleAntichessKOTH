@@ -133,10 +133,13 @@ public class Game {
         def allMoves = player.getPieces(board).collect { [it, it.getValidDestinationSet(board)] }
         def attackMoves = allMoves
                 .collect { pair ->
-            def piece = pair[0]
-            def dests = pair[1]
-            [piece, dests.findAll { board.getFieldAtLoc(it as Location)?.piece?.team == enemy.team }]
-        }.findAll { it[1] }
+                        def piece = pair[0]
+                        def dests = pair[1]
+                        return [piece,
+                                dests.findAll {
+                                    board.getFieldAtLoc(it as Location)?.piece?.team == enemy.team
+                                }]
+                }.findAll { it[1] }
 
         if (attackMoves.isEmpty())
             return allMoves.collect {
