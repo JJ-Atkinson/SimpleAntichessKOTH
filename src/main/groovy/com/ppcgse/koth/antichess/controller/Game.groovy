@@ -135,7 +135,10 @@ public class Game {
                 .collect { pair ->
             def piece = pair[0]
             def dests = pair[1]
-            [piece, dests.findAll { board.getFieldAtLoc(it as Location)?.piece?.team == enemy.team }]
+            return [piece,
+                    dests.findAll {
+                        board.getFieldAtLoc(it as Location)?.piece?.team == enemy.team
+                    }]
         }.findAll { it[1] }
 
         if (attackMoves.isEmpty())
